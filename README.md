@@ -104,6 +104,49 @@ python create_report_with_relationships.py --report-name "APT攻撃分析レポ�
 - `DEFAULT_TLP`: TLPマーキングのデフォルト値（TLP:WHITE, TLP:GREEN, TLP:AMBER, TLP:RED）
 - `DEFAULT_VALID_DAYS`: Indicatorの有効期間（日数）
 
+## テスト
+
+このプロジェクトには、各スクリプトの機能をテストするための単体テストが含まれています。テストは、実際のOpenCTI環境に接続せずに実行できるように、モックを使用しています。
+
+### テストの実行
+
+すべてのテストを実行するには、以下のコマンドを使用します：
+
+```bash
+python run_tests.py
+```
+
+特定のテストのみを実行するには、以下のコマンドを使用します：
+
+```bash
+python -m unittest tests/test_create_report.py
+python -m unittest tests/test_create_observable.py
+python -m unittest tests/test_create_indicator.py
+python -m unittest tests/test_create_report_with_relationships.py
+```
+
+### テストの構造
+
+テストは以下のディレクトリとファイルで構成されています：
+
+- `tests/`: テストディレクトリ
+  - `test_config.py`: テスト用の設定ファイル
+  - `mock_opencti.py`: OpenCTI APIのモック
+  - `test_create_report.py`: レポート作成のテスト
+  - `test_create_observable.py`: Observable作成のテスト
+  - `test_create_indicator.py`: Indicator作成のテスト
+  - `test_create_report_with_relationships.py`: 関係性を含むレポート作成のテスト
+
+### テスト駆動開発（TDD）
+
+このプロジェクトでは、テスト駆動開発（TDD）の原則に従って開発を進めることができます。新しい機能を追加する場合は、以下の手順に従ってください：
+
+1. 新しい機能のテストを作成する
+2. テストが失敗することを確認する
+3. テストが通るように機能を実装する
+4. テストが通ることを確認する
+5. コードをリファクタリングする（テストが引き続き通ることを確認）
+
 ## 注意事項
 
 - OpenCTIのデモ環境では、一部の機能が制限されている場合があります
