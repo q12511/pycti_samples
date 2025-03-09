@@ -54,19 +54,45 @@ OpenCTI APIの設定を一元管理するための設定ファイルです。す
 
 ## 必要条件
 
-- Python 3.6以上
-- PyCTIライブラリ
+- Python 3.8.10（推奨）、3.6以上が必要
+- PyCTIライブラリ 6.3.7
 - OpenCTIプラットフォームへのアクセス権とAPIキー
 
 ## インストール
 
-1. 必要なライブラリをインストールします：
+### 1. Pythonの準備
+
+このプロジェクトはPython 3.8.10での動作を確認しています。pyenvを使用している場合は、リポジトリのルートにある`.python-version`ファイルが自動的に適切なバージョンを選択します。
 
 ```bash
-pip install pycti
+# pyenvを使用してPython 3.8.10をインストール
+pyenv install 3.8.10
+
+# プロジェクトディレクトリに移動すると、.python-versionファイルにより自動的に3.8.10が選択されます
+cd opencti-pycti-tools
 ```
 
-2. `config.py`ファイル内のAPI設定を更新します：
+### 2. 仮想環境の作成（オプション）
+
+```bash
+# venvを使用して仮想環境を作成
+python -m venv venv
+
+# 仮想環境を有効化（Windows）
+venv\Scripts\activate
+
+# 仮想環境を有効化（Linux/Mac）
+source venv/bin/activate
+```
+
+### 3. 必要なライブラリをインストール
+
+```bash
+# requirements.txtを使用して依存関係をインストール
+pip install -r requirements.txt
+```
+
+### 4. `config.py`ファイル内のAPI設定を更新
 
 ```python
 # OpenCTI APIの設定
@@ -77,6 +103,16 @@ API_KEY = "your-api-key"  # OpenCTIのAPIキーを設定
 DEFAULT_CONFIDENCE = 75  # 信頼度のデフォルト値
 DEFAULT_TLP = "TLP:AMBER"  # TLPマーキングのデフォルト値
 DEFAULT_VALID_DAYS = 30  # Indicatorの有効期間（日数）
+```
+
+### 5. Dockerを使用する場合（オプション）
+
+```bash
+# Dockerイメージをビルド
+docker build -t opencti-pycti-tools .
+
+# Dockerコンテナを実行
+docker run -it --rm opencti-pycti-tools
 ```
 
 ## 使用例
@@ -113,7 +149,11 @@ python create_report_with_relationships.py --report-name "APT攻撃分析レポ�
 すべてのテストを実行するには、以下のコマンドを使用します：
 
 ```bash
+# 標準のテスト実行
 python run_tests.py
+
+# pytestを使用したテスト実行（カバレッジレポート付き）
+pytest tests/ --cov=. --cov-report=term-missing
 ```
 
 特定のテストのみを実行するには、以下のコマンドを使用します：
@@ -161,6 +201,8 @@ python -m unittest tests/test_create_report_with_relationships.py
 2. OpenCTIサーバーが稼働していること
 3. APIキーに適切な権限があること
 4. ネットワーク接続に問題がないこと
+5. Pythonバージョンが3.6以上であること（3.8.10を推奨）
+6. 必要なライブラリが正しくインストールされていること（`pip install -r requirements.txt`）
 
 ## 参考資料
 

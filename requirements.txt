@@ -1,0 +1,14 @@
+# Python バージョン: 3.6以上が必要
+# python>=3.6
+
+# OpenCTI クライアントライブラリ
+pycti==6.3.7
+
+# テスト用ライブラリ
+pytest==7.4.0
+pytest-cov==4.1.0
+mock==5.1.0
+
+# ユーティリティライブラリ
+requests==2.32.2
+python-dateutil==2.8.2 
